@@ -604,7 +604,11 @@ async function login() {
     localStorage.setItem(authKey(result.role), JSON.stringify(result));
     localStorage.removeItem("olimpiadasAuth");
     $("loginHint").textContent = "";
-    if (result.role === "admin") showAdmin();
+    updateNavVisibility();
+    if (result.role === "admin") {
+      if (mode === "projection") showProjection();
+      else showAdmin();
+    }
     if (result.role === "projection") showProjection();
   } catch (error) {
     $("loginHint").textContent = error.message;
@@ -621,6 +625,7 @@ function logoutAdmin() {
   $("loginPass").value = "";
   $("loginTitle").textContent = "Cuenta administradora";
   $("loginHint").textContent = "Sesión cerrada.";
+  updateNavVisibility();
   setRoleLabel("Administrador");
   setView("loginView");
 }
@@ -673,6 +678,7 @@ async function showAdmin() {
 
 async function showProjection() {
   mode = "projection";
+  if (!requireLogin("admin")) return;
   $("pageTitle").textContent = "Pantalla de proyección";
   setRoleLabel("Proyección");
   setView("projectionView");
@@ -701,7 +707,7 @@ function showStudent() {
   $("studentName").value = code ? "" : student.name;
   $("studentRut").value = code ? "" : student.rut;
   if (code) {
-    document.querySelector(".role-nav").classList.add("hidden");
+    document.querySelector(".menu-container")?.classList.add("hidden");
     $("studentCode").value = code.toUpperCase();
     $("studentCodeLabel").classList.add("hidden");
     student.code = code.toUpperCase();
@@ -1644,6 +1650,28 @@ async function init() {
     $("publishWinners").addEventListener("click", publishWinners);
     $("joinSession").addEventListener("click", joinSession);
     $("finishQuiz").addEventListener("click", finishQuiz);
+
+    $("menuButton")?.addEventListener("click", () => {
+      $("roleNav")?.classList.toggle("hidden");
+    });
+    
+    $("openVideoButton")?.addEventListener("click", () => {
+      $("videoModal")?.classList.remove("hidden");
+      $("projectionVideo")?.play();
+    });
+    
+    $("closeVideoButton")?.addEventListener("click", () => {
+      $("videoModal")?.classList.add("hidden");
+      $("projectionVideo")?.pause();
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!e.target.closest(".menu-container")) {
+        $("roleNav")?.classList.add("hidden");
+      }
+    });
+
+    updateNavVisibility();
   } catch (error) {
     setView("studentView");
     $("pageTitle").textContent = "Cuestionario estudiantes";
