@@ -58,6 +58,50 @@
       .menu-container.hidden {
         display: none !important;
       }
+      .video-modal {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.85);
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .video-modal.hidden {
+        display: none !important;
+      }
+      .video-modal-content {
+        position: relative;
+        width: 80%;
+        max-width: 900px;
+        background: #000;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      }
+      .video-modal-content video {
+        width: 100%;
+        display: block;
+      }
+      .close-video-btn {
+        position: absolute;
+        top: 10px; right: 10px;
+        background: rgba(255,255,255,0.2);
+        border: none;
+        color: #fff;
+        font-size: 28px;
+        cursor: pointer;
+        border-radius: 50%;
+        width: 40px; height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+        transition: background 0.2s;
+      }
+      .close-video-btn:hover {
+        background: rgba(255,255,255,0.4);
+      }
     </style>
   </head>
   <body>
@@ -246,6 +290,7 @@
             <h2 id="projectionCode">Código -----</h2>
             <img id="projectionQr" alt="QR para estudiantes" />
             <p id="projectionJoin"></p>
+            <button id="openVideoButton" type="button" style="margin-top: 1.5rem;">Reproducir Video</button>
           </section>
           <section class="projection-side">
             <div class="timer-card">
@@ -264,6 +309,17 @@
             <ol id="projectionRanking" class="leaderboard hidden"></ol>
             <div id="projectionPodium" class="podium hidden"></div>
           </section>
+        </div>
+
+        <!-- Modal de Video -->
+        <div id="videoModal" class="video-modal hidden">
+          <div class="video-modal-content">
+            <button id="closeVideoButton" class="close-video-btn" aria-label="Cerrar video">&times;</button>
+            <video id="projectionVideo" controls>
+              <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+              Tu navegador no soporta el formato de video.
+            </video>
+          </div>
         </div>
       </section>
 

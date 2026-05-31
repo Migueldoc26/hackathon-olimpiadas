@@ -1655,6 +1655,16 @@ async function init() {
       $("roleNav")?.classList.toggle("hidden");
     });
     
+    $("openVideoButton")?.addEventListener("click", () => {
+      $("videoModal")?.classList.remove("hidden");
+      $("projectionVideo")?.play();
+    });
+    
+    $("closeVideoButton")?.addEventListener("click", () => {
+      $("videoModal")?.classList.add("hidden");
+      $("projectionVideo")?.pause();
+    });
+
     document.addEventListener("click", (e) => {
       if (!e.target.closest(".menu-container")) {
         $("roleNav")?.classList.add("hidden");
