@@ -5,6 +5,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Olimpiadas - levantamiento de respuestas</title>
     <link rel="stylesheet" href="/styles.css" />
+    <style>
+      .menu-container {
+        position: relative;
+      }
+      .hamburger-menu {
+        background: none;
+        border: 1px solid #ded1ef;
+        border-radius: 4px;
+        cursor: pointer;
+        padding: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #4c1d95;
+      }
+      .hamburger-menu:hover {
+        background-color: #f5f0ff;
+      }
+      .role-nav.dropdown {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: white;
+        border: 1px solid #ded1ef;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        border-radius: 4px;
+        display: flex;
+        flex-direction: column;
+        min-width: 150px;
+        z-index: 100;
+        margin-top: 8px;
+      }
+      .role-nav.dropdown.hidden {
+        display: none !important;
+      }
+      .role-nav.dropdown a {
+        padding: 12px 16px;
+        text-decoration: none;
+        color: #4c1d95;
+        border-bottom: 1px solid #f5f0ff;
+      }
+      .role-nav.dropdown a:last-child {
+        border-bottom: none;
+      }
+      .role-nav.dropdown a:hover {
+        background-color: #f5f0ff;
+      }
+      .role-nav.dropdown a.hidden {
+        display: none !important;
+      }
+      .menu-container.hidden {
+        display: none !important;
+      }
+    </style>
   </head>
   <body>
     <main class="shell">
@@ -14,11 +68,20 @@
           <p class="eyebrow">Etapa Hackathon</p>
           <h1 id="pageTitle">Levantamiento de respuestas</h1>
         </div>
-        <nav class="role-nav" aria-label="Perfiles">
-          <a id="navAdmin" href="/admin">Administrador</a>
-          <a id="navProjection" href="/proyeccion">Proyección</a>
-          <a id="navStudent" href="/estudiante">Estudiante</a>
-        </nav>
+        <div class="menu-container">
+          <button id="menuButton" class="hamburger-menu" aria-label="Menú">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+          <nav id="roleNav" class="role-nav dropdown hidden" aria-label="Perfiles">
+            <a id="navAdmin" href="/admin">Administrador</a>
+            <a id="navProjection" href="/proyeccion" class="hidden">Proyección</a>
+            <a id="navStudent" href="/estudiante">Estudiante</a>
+          </nav>
+        </div>
       </section>
 
       <section id="loginView" class="view">
